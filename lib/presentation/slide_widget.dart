@@ -11,48 +11,51 @@ class SlideWidget extends StatefulWidget {
 }
 
 class _SlideWidgetState extends State<SlideWidget> {
+  /// for Position
   double _dragPosition=1;
+  /// for Completion
   bool isCompleted=false;
 
+///onDragUpdate
   onDragUpdate(DragUpdateDetails details){
-
     updateDragPosition(details.localPosition.dx);
-
   }
+  ///onDragUpdate
   onDragEnd(DragEndDetails details){
-
+    /// checking if the drag is half done or not
     if(_dragPosition<=widget.width/2){
+      /// if no
       _dragPosition=0;
-
     }else{
+      ///if yes
       _dragPosition=widget.width-60;
       onDragComplete();
     }
-    setState(() {
-
-    });
-
+    setState(() {});
   }
-
+/// When DragCompleted
   onDragComplete(){
+    /// using Timer to wait for milliseconds: 400
     Timer(const Duration(milliseconds: 400),(){
       setState(() {
         isCompleted=true;
       });
+      /// calling the navigate method to navigate to another screen
       navigate();
     }
 
     );
   }
-
+/// Navigating to other screen
   navigate(){
+   /// after milliseconds: 500
     Timer(const Duration(milliseconds: 500),(){
       Navigator.of(context).push(_createRoute());
     }
 
     );
   }
-
+/// Updating the drag Position
   void updateDragPosition(double position){
     double newPosition=0;
 
@@ -95,8 +98,9 @@ class _SlideWidgetState extends State<SlideWidget> {
          ): Stack(
            alignment: Alignment.center,
            children: [
-
+/// Animated Position
             AnimatedPositioned(
+              /// getting _dragPosition from GestureDetector onHorizontalDragUpdate
                 left: _dragPosition,
                  duration: const Duration(milliseconds: 300),
                  curve: Curves.linear,
@@ -105,6 +109,7 @@ class _SlideWidgetState extends State<SlideWidget> {
                    backgroundColor:Color(0xffD9D9D9),
                    child: Icon(Icons.arrow_forward,color: Colors.black,),
                  )),
+             /// Display Text
              isCompleted?const SizedBox():  const  Text("Swipe to Send",style: TextStyle(color: Colors.white,fontSize: 18),)
            ],
          ),
@@ -113,6 +118,7 @@ class _SlideWidgetState extends State<SlideWidget> {
     );
   }
 }
+/////////////// Custom Route Transition /////////////////
 Route _createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => const PaymentCompleteScreen(),

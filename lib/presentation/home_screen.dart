@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-
+///////////// Amount Display  Container //////////////
             Container(
               height: 50,
               width: 200,
@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
          child:   Text(amount,style: const TextStyle(color: Colors.white,fontSize: 30),),
 
             ),
+            /////////////// KeyPad UI /////////////////
             for(int i=0;i<keyboardList.length;i++)...[
               SizedBox(
                 height: 80,
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               )
             ],
-
+            /////////////// Slide Widget  /////////////////
             SizedBox(
               height: 150,
               child: Hero(
